@@ -4,6 +4,7 @@ mod auto_launch;
 mod claude_desktop_config;
 mod claude_mcp;
 mod claude_plugin;
+mod claude_science;
 mod codex_config;
 mod codex_history_migration;
 mod codex_rollout_file;
@@ -1438,6 +1439,9 @@ pub fn run() {
             commands::import_default_config,
             commands::get_claude_desktop_status,
             commands::get_claude_desktop_default_routes,
+            commands::claude_science_status,
+            commands::claude_science_launch,
+            commands::claude_science_stop,
             commands::import_claude_desktop_providers_from_claude,
             commands::ensure_claude_desktop_official_provider,
             commands::ensure_codex_official_provider,

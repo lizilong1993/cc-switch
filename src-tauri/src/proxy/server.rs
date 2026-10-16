@@ -313,6 +313,32 @@ impl ProxyServer {
                 "/claude-desktop/v1/messages",
                 post(handlers::handle_claude_desktop_messages),
             )
+            // Claude Science（原生 Windows）本地 gateway：复用 Claude Desktop 的
+            // provider 命名空间与 claude-* 角色模型映射，另补账号资料占位路由。
+            .route(
+                "/claude-science/v1/models",
+                get(handlers::handle_claude_science_models),
+            )
+            .route(
+                "/claude-science/v1/messages",
+                post(handlers::handle_claude_science_messages),
+            )
+            .route(
+                "/claude-science/v1/messages/count_tokens",
+                post(handlers::handle_claude_science_count_tokens),
+            )
+            .route(
+                "/claude-science/api/oauth/profile",
+                get(handlers::handle_claude_science_profile),
+            )
+            .route(
+                "/claude-science/api/oauth/account",
+                get(handlers::handle_claude_science_account),
+            )
+            .route(
+                "/claude-science/api/oauth/usage",
+                get(handlers::handle_claude_science_usage),
+            )
             // OpenAI Chat Completions API (Codex CLI，支持带前缀和不带前缀)
             .route("/chat/completions", post(handlers::handle_chat_completions))
             .route(

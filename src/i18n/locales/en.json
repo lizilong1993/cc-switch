@@ -3,6 +3,18 @@
     "title": "CC Switch",
     "description": "All-in-One Assistant for Claude Code, Codex & Gemini CLI"
   },
+  "claudeScience": {
+    "title": "Claude Science (native Windows)",
+    "version": "Installed version {{version}}",
+    "ready": "Managed profile ready",
+    "installedNoProfile": "Managed profile not created yet",
+    "notInstalled": "Claude Science not found",
+    "unsupported": "Not supported on this platform",
+    "launch": "Launch",
+    "stop": "Stop",
+    "launched": "Launched (port {{port}}, inference routed to {{baseUrl}})",
+    "stopped": "Stopped"
+  },
   "common": {
     "unsavedLeaveTitle": "Unsaved changes",
     "unsavedLeaveMessage": "If you leave, the changes on this editor page will not be saved.",

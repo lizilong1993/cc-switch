@@ -3,6 +3,18 @@
     "title": "CC Switch",
     "description": "Claude Code, Codex ve Gemini CLI için Hepsi Bir Arada Asistan"
   },
+  "claudeScience": {
+    "title": "Claude Science (yerel Windows)",
+    "version": "Yüklü sürüm {{version}}",
+    "ready": "Yönetilen profil hazır",
+    "installedNoProfile": "Yönetilen profil henüz oluşturulmadı",
+    "notInstalled": "Claude Science bulunamadı",
+    "unsupported": "Bu platform desteklenmiyor",
+    "launch": "Başlat",
+    "stop": "Durdur",
+    "launched": "Başlatıldı (port {{port}}, çıkarım {{baseUrl}})",
+    "stopped": "Durduruldu"
+  },
   "common": {
     "unsavedLeaveTitle": "Kaydedilmemiş değişiklikler",
     "unsavedLeaveMessage": "Ayrılırsanız bu editör sayfasındaki değişiklikler kaydedilmeyecektir.",

@@ -304,6 +304,89 @@ pub async fn handle_claude_desktop_models(
     Ok(Json(response))
 }
 
+/// Claude Science（原生 Windows）本地 gateway 的推理入口。
+///
+/// 复用 Claude Desktop 的 provider 命名空间与角色模型映射：Science 与 Desktop 都是
+/// Anthropic Messages 客户端，模型选择器同样使用 claude-* 角色 route id。
+pub async fn handle_claude_science_messages(
+    State(state): State<ProxyState>,
+    request: axum::extract::Request,
+) -> Result<axum::response::Response, ProxyError> {
+    handle_messages_for_app(
+        state,
+        request,
+        AppType::ClaudeDesktop,
+        "Claude Science",
+        "claude-desktop",
+        Some("/claude-science"),
+    )
+    .await
+}
+
+/// Science 的模型目录。
+///
+/// 该路由只监听 loopback，鉴权口径与 Claude Code 的 /v1/messages 一致，
+/// 不要求 Desktop 的 gateway token（Science 只会带虚拟登录里的 bearer）。
+pub async fn handle_claude_science_models(
+    State(state): State<ProxyState>,
+) -> Result<Json<Value>, ProxyError> {
+    let providers = state
+        .provider_router
+        .select_providers("claude-desktop")
+        .await
+        .map_err(|e| ProxyError::DatabaseError(e.to_string()))?;
+    let provider = providers.first().ok_or(ProxyError::NoAvailableProvider)?;
+    let response = crate::claude_desktop_config::model_list_response(provider)
+        .map_err(|e| ProxyError::ConfigError(e.to_string()))?;
+    Ok(Json(response))
+}
+
+/// Science 会用 count_tokens 预估上下文；这里给出有界的本地估算，避免 404。
+pub async fn handle_claude_science_count_tokens(
+    axum::extract::Json(body): axum::extract::Json<Value>,
+) -> Result<Json<Value>, ProxyError> {
+    let bytes = serde_json::to_string(&body).map(|s| s.len()).unwrap_or(0);
+    Ok(Json(json!({ "input_tokens": (bytes / 4).max(1) })))
+}
+
+/// Science 启动后向 base URL 拉取账号资料；不实现会表现为「未登录」。
+pub async fn handle_claude_science_profile() -> Result<Json<Value>, ProxyError> {
+    let (account_uuid, org_uuid) = crate::claude_science::virtual_identity().unwrap_or_default();
+    Ok(Json(json!({
+        "account": {
+            "uuid": account_uuid,
+            "email": crate::claude_science::VIRTUAL_EMAIL,
+            "display_name": "CC Switch Virtual Account"
+        },
+        "organization": {
+            "uuid": org_uuid,
+            "name": "CC Switch Virtual Org",
+            "organization_type": "claude_max",
+            "billing_type": "none"
+        },
+        "applications": [],
+        "enabled_plugins": []
+    })))
+}
+
+/// Science 的账号信息与用量查询占位，避免被判定为会话失效。
+pub async fn handle_claude_science_account() -> Result<Json<Value>, ProxyError> {
+    let (account_uuid, _) = crate::claude_science::virtual_identity().unwrap_or_default();
+    Ok(Json(json!({
+        "uuid": account_uuid,
+        "email": crate::claude_science::VIRTUAL_EMAIL,
+        "memberships": []
+    })))
+}
+
+pub async fn handle_claude_science_usage() -> Result<Json<Value>, ProxyError> {
+    Ok(Json(json!({
+        "five_hour": { "utilization": 0.0, "resets_at": null },
+        "seven_day": { "utilization": 0.0, "resets_at": null },
+        "seven_day_opus": null
+    })))
+}
+
 async fn handle_messages_for_app(
     state: ProxyState,
     request: axum::extract::Request,

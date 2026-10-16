@@ -3,6 +3,18 @@
     "title": "CC Switch",
     "description": "Claude Code / Codex / Gemini CLI 全方位辅助工具"
   },
+  "claudeScience": {
+    "title": "Claude Science（原生 Windows）",
+    "version": "已安装版本 {{version}}",
+    "ready": "托管档案就绪",
+    "installedNoProfile": "尚未生成托管档案",
+    "notInstalled": "未检测到 Claude Science",
+    "unsupported": "当前平台暂不支持",
+    "launch": "启动",
+    "stop": "停止",
+    "launched": "已启动（端口 {{port}}，推理指向 {{baseUrl}}）",
+    "stopped": "已停止"
+  },
   "common": {
     "unsavedLeaveTitle": "有未保存的修改",
     "unsavedLeaveMessage": "离开后，当前编辑页里的修改不会保存。",

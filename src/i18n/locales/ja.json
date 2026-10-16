@@ -3,6 +3,18 @@
     "title": "CC Switch",
     "description": "Claude Code・Codex・Gemini CLI のためのオールインワンアシスタント"
   },
+  "claudeScience": {
+    "title": "Claude Science（Windows ネイティブ）",
+    "version": "インストール済みバージョン {{version}}",
+    "ready": "管理プロファイル準備完了",
+    "installedNoProfile": "管理プロファイル未作成",
+    "notInstalled": "Claude Science が見つかりません",
+    "unsupported": "このプラットフォームは未対応です",
+    "launch": "起動",
+    "stop": "停止",
+    "launched": "起動しました（ポート {{port}}、推論先 {{baseUrl}}）",
+    "stopped": "停止しました"
+  },
   "common": {
     "unsavedLeaveTitle": "未保存の変更があります",
     "unsavedLeaveMessage": "移動すると、この編集ページの変更は保存されません。",

@@ -52,6 +52,7 @@ import { ToolInstallRow } from "@/components/settings/ToolInstallRow";
 import { ToolErrorMessage } from "@/components/settings/ToolErrorMessage";
 import { ToolUninstallConfirmDialog } from "./ToolUninstallConfirmDialog";
 import { ManualUninstallDialog } from "./ManualUninstallDialog";
+import { ClaudeScienceCard } from "./ClaudeScienceCard";
 import {
   ENV_BADGE_CONFIG,
   ONE_CLICK_INSTALL_COMMANDS,
@@ -392,6 +393,8 @@ export function AppsPage() {
               ),
             )}
           </div>
+
+          <ClaudeScienceCard />
         </div>
       </div>
 

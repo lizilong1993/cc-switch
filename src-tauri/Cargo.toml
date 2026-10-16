@@ -81,6 +81,10 @@ rust_decimal = "1.33"
 uuid = { version = "1.11", features = ["v4"] }
 sha2 = "0.10"
 hmac = "0.12"
+# Claude Science 虚拟登录的 v2 令牌契约（HKDF-SHA256 + AES-256-GCM）
+hkdf = "0.12"
+aes-gcm = "0.10"
+rand = "0.8"
 json5 = "0.4"
 json-five = "0.3.1"
 sys-locale = "0.3"
